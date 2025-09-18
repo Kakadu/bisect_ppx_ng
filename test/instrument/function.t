@@ -1,0 +1,38 @@
+This is a regression test for #450: https://github.com/aantron/bisect_ppx/issues/450
+
+  $ cat > dune-project <<'EOF'
+  > (lang dune 2.7)
+  > EOF
+
+  $ cat > dune <<'EOF'
+  > (library
+  >  (name lib)
+  >  (modules lib)
+  >  (instrumentation (backend bisect_ppx)))
+  > 
+  > (test
+  >  (name test)
+  >  (libraries lib)
+  >  (modules test))
+  > EOF
+
+  $ cat > lib.ml <<'EOF'
+  > let is_hex_digit = function '0' .. '9' | 'a' .. 'f' -> true | _ -> false
+  > EOF
+
+  $ cat > test.ml <<'EOF'
+  > let () =
+  > if Lib.is_hex_digit '1' then begin
+  >   Printf.printf "Test success!";
+  >   exit 0
+  > end else
+  >   Printf.printf "Test failure!";
+  >   exit 1
+  > EOF
+
+  $ dune runtest --instrument-with bisect_ppx
+  File "lib.ml", line 1, characters 19-72:
+  1 | let is_hex_digit = function '0' .. '9' | 'a' .. 'f' -> true | _ -> false
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  Error: broken invariant in parsetree: Function without any value parameters
+  [1]
