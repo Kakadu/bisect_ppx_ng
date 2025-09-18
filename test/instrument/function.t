@@ -31,8 +31,4 @@ This is a regression test for #450: https://github.com/aantron/bisect_ppx/issues
   > EOF
 
   $ dune runtest --instrument-with bisect_ppx
-  File "lib.ml", line 1, characters 19-72:
-  1 | let is_hex_digit = function '0' .. '9' | 'a' .. 'f' -> true | _ -> false
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  Error: broken invariant in parsetree: Function without any value parameters
-  [1]
+  Test success!
