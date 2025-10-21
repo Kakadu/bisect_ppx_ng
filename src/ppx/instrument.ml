@@ -1313,6 +1313,13 @@ class instrumenter =
             >>| fun e_new ->
             instrument_expr ~use_loc_of:e ~post:true (Exp.assert_ e_new)
 
+          (* The case where we have [function A -> ... | B -> ...] *)
+          | Pexp_function ([], constraint_, (Pfunction_cases _ as cases)) ->
+            traverse_function_body ~is_in_tail_position ~params:[] cases 
+            >>| fun (new_body, new_params) ->
+            let e = Ast_builder.Default.pexp_function ~loc new_params constraint_ new_body in
+            { e with pexp_attributes = attrs }
+
           (* Expressions that have subexpressions that might not get visited. *)
           | Pexp_function (params, constraint_, body) ->
             let open Parsetree in
@@ -1440,7 +1447,7 @@ class instrumenter =
             >>| fun e ->
             let e =
               match e.pexp_desc with
-              | Pexp_function _ -> e
+              | Pexp_function ([], _, Pfunction_cases _) -> e
               | _ -> instrument_expr e
             in
             Exp.poly ~loc ~attrs e t
