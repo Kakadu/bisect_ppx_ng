@@ -52,10 +52,5 @@ This is a regression test for https://github.com/aantron/bisect_ppx/pull/448#iss
   > EOF
 
   $ dune runtest --instrument-with bisect_ppx
-  File "lib.ml", line 2, characters 31-37:
-  2 |   | '0' .. '9' | 'a' .. 'f' -> f true
-                                     ^^^^^^
-  Error: This expression has type bool but an expression was expected of type
-           char -> bool
-  [1]
+  Test success!
 
