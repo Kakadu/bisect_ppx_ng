@@ -3,3 +3,8 @@
   test.sh
   (package bisect_ppx))
  (alias compatible))
+
+(cram
+ (applies_to only5_5)
+ (enabled_if
+  (>= %{ocaml_version} "5.5.0")))
