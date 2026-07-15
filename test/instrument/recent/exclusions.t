@@ -17,12 +17,11 @@
   $ cat > excluded_1.ml <<'EOF'
   > let _f () = ()
   > EOF
-  $ dune build ./not_excluded.bc --instrument-with bisect_ppx 2>&1 | grep -v no_alias_deps | grep -v transparent_modules
+  $ dune build ./not_excluded.bc --instrument-with bisect_ppx 2>&1 | grep -v no_alias_deps | grep -v transparent_modules | grep -v hidden_include_dirs
   [@@@ocaml.ppx.context
     {
       tool_name = "ppx_driver";
       include_dirs = [];
-      hidden_include_dirs = [];
       load_path = ([], []);
       open_modules = [];
       for_package = None;
@@ -70,4 +69,3 @@
       cookies = []
     }]
   let _f () = ()
-

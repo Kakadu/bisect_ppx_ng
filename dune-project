@@ -4,6 +4,8 @@
 
 (name bisect_ppx)
 
+(version 3.0.0)
+
 (generate_opam_files true)
 
 (authors
@@ -21,16 +23,21 @@
 
 ;(dev-repo "git+https://github.com/Kakadu/bisect_ppx_ng.git")
 
-(license MIT)
+(maintenance_intent "2.8.3" "(latest)")
 
-(maintenance_intent "(latest)")
+(license MIT)
 
 (package
  (name bisect_ppx)
  (synopsis "Code coverage for OCaml")
  (depends
   (ocaml
-   (>= "5.3.0"))
+   (or
+    (and
+     (>= 4.14.2)
+     (< 5.0.0))
+    (and
+     (>= 5.3.0))))
   (ppxlib
    (>= "0.36.0"))
   (cmdliner
