@@ -86,16 +86,9 @@ jobs:
     - name: Test
       if: ${{runner.os != 'Windows'}}
       run: |
-        case `opam exec -- ocamlc -version` in
-          "4.07.1") TEST_ALIAS=@compatible;;
-          "4.06.1") TEST_ALIAS=@compatible;;
-          "4.05.0") TEST_ALIAS=@compatible;;
-          "4.04.2") TEST_ALIAS=@compatible;;
-          *) TEST_ALIAS=@runtest;;
-        esac
         unset GITHUB_ACTIONS
         unset GITHUB_RUN_NUMBER
-        opam exec -- make test TEST=$TEST_ALIAS
+        opam exec -- make test TEST=@runtest
 
 
     - name: Usage test
