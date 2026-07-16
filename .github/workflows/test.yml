@@ -74,7 +74,7 @@ jobs:
       run: |
         opam --version
         opam exec -- ocaml -version
-        opam exec -- ocamlformat --version
+        #opam exec -- ocamlformat --version
         truncate --version
 
     - name: Build
