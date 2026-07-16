@@ -7,8 +7,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - ubuntu-22.04
-        - macos-13
+        - ubuntu-26.04
+        #- macos-13
         # Build binaries on older systems to require lower versions of libc and
         # other system libraries.
 
@@ -32,22 +32,17 @@ jobs:
         os:
         - ubuntu-latest
         ocaml:
+        - 4.14.2
         - 5.0.0
-        - 4.14.1
-        - 4.13.1
-        - 4.12.1
-        - 4.11.2
-        - 4.10.2
-        - 4.09.1
-        - 4.08.1
+        - 5.1.1
+        - 5.2.1
+        - 5.4.1
+        - 5.5.1
         include:
         - os: macos-latest
-          ocaml: 4.12.1
-          # ocamlformat 0.16.0, used in testing, doesn't support OCaml 4.13, and
-          # we are using a Linux binary of it. So, hold the Mac build back to
-          # 4.12 for now, and install ocamlformat from opam on Mac.
+          ocaml: 4.14.2
         - os: windows-latest
-          ocaml: 4.12.1
+          ocaml: 4.14.2
 
     runs-on: ${{matrix.os}}
     steps:
@@ -59,14 +54,15 @@ jobs:
     - name: Install opam dependencies
       run: opam install --deps-only --yes .
 
-    - name: Install ocamlformat (Linux)
-      if: ${{runner.os == 'Linux'}}
-      run: |
-        wget https://github.com/aantron/ocamlformat-binary/releases/download/0.15.0/ocamlformat
-        sudo mv ocamlformat /usr/local/bin/ocamlformat
-        sudo chmod a+x /usr/local/bin/ocamlformat
+    # - name: Install ocamlformat (Linux)
+    #   if: ${{runner.os == 'Linux'}}
+    #   run: |
+    #     wget https://github.com/aantron/ocamlformat-binary/releases/download/0.15.0/ocamlformat
+    #     sudo mv ocamlformat /usr/local/bin/ocamlformat
+    #     sudo chmod a+x /usr/local/bin/ocamlformat
+
     - name: Install ocamlformat (non-Linux)
-      if: ${{runner.os != 'Linux'}}
+      #if: ${{runner.os != 'Linux'}}
       run: opam install ocamlformat.0.16.0 --yes
 
     - name: Install coreutils (Mac)
@@ -100,15 +96,15 @@ jobs:
         unset GITHUB_RUN_NUMBER
         opam exec -- make test TEST=$TEST_ALIAS
 
-    # Reason requires OCaml <= 4.12.
+
     - name: Usage test
-      if: ${{matrix.ocaml == '4.12.1' && runner.os == 'Linux'}}
+      if: ${{matrix.ocaml == '4.14.2' && runner.os == 'Linux'}}
       run: |
         opam install reason js_of_ocaml --yes
         opam exec -- make clean-usage usage
 
     - name: Submit self-coverage to Coveralls
-      if: ${{matrix.ocaml == '4.12.1' && runner.os == 'Linux'}}
+      if: ${{matrix.ocaml == '4.14.2' && runner.os == 'Linux'}}
       continue-on-error: true
       env:
         COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
