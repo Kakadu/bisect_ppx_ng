@@ -37,7 +37,8 @@ jobs:
         - 5.1.1
         - 5.2.1
         - 5.4.1
-        - 5.5.1
+        - 5.5.0
+        #- 5.5.1
         include:
         - os: macos-latest
           ocaml: 4.14.2
@@ -61,9 +62,9 @@ jobs:
     #     sudo mv ocamlformat /usr/local/bin/ocamlformat
     #     sudo chmod a+x /usr/local/bin/ocamlformat
 
-    - name: Install ocamlformat (non-Linux)
-      #if: ${{runner.os != 'Linux'}}
-      run: opam install ocamlformat.0.16.0 --yes
+    # - name: Install ocamlformat (non-Linux)
+    #   #if: ${{runner.os != 'Linux'}}
+    #   run: opam install ocamlformat.0.16.0 --yes
 
     - name: Install coreutils (Mac)
       if: ${{runner.os == 'macOS'}}
