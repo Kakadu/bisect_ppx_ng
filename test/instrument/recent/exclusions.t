@@ -17,12 +17,13 @@
   $ cat > excluded_1.ml <<'EOF'
   > let _f () = ()
   > EOF
-  $ dune build ./not_excluded.bc --instrument-with bisect_ppx 2>&1
+  $ dune build ./not_excluded.bc --instrument-with bisect_ppx 2>&1 | grep -v no_alias_deps | grep -v transparent_modules
   [@@@ocaml.ppx.context
     {
       tool_name = "ppx_driver";
       include_dirs = [];
-      load_path = [];
+      hidden_include_dirs = [];
+      load_path = ([], []);
       open_modules = [];
       for_package = None;
       debug = false;
@@ -30,7 +31,6 @@
       use_vmthreads = false;
       recursive_types = false;
       principal = false;
-      transparent_modules = false;
       unboxed_types = false;
       unsafe_string = false;
       cookies = []
@@ -51,12 +51,13 @@
   [@@@ocaml.text "/*"]
   let _f () = ___bisect_visit___ 0; ()
 
-  $ dune build ./excluded_1.bc --instrument-with bisect_ppx 2>&1
+  $ dune build ./excluded_1.bc --instrument-with bisect_ppx 2>&1 | grep -v no_alias_deps | grep -v transparent_modules
   [@@@ocaml.ppx.context
     {
       tool_name = "ppx_driver";
       include_dirs = [];
-      load_path = [];
+      hidden_include_dirs = [];
+      load_path = ([], []);
       open_modules = [];
       for_package = None;
       debug = false;
@@ -64,7 +65,6 @@
       use_vmthreads = false;
       recursive_types = false;
       principal = false;
-      transparent_modules = false;
       unboxed_types = false;
       unsafe_string = false;
       cookies = []

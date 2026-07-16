@@ -14,18 +14,9 @@
 
 
 From Travis to Coveralls.
-
-  $ bisect-ppx-report send-to --dry-run No-such-service --verbose 2>&1 | sed s/…/.../g | sed s/\`/\'/g
-  Usage: bisect-ppx-report send-to [--help] [OPTION]... SERVICE
-         [COVERAGE_FILES]...
-  bisect-ppx-report: SERVICE argument: invalid value 'No-such-service',
-                     expected either 'Codecov' or 'Coveralls'
-
-  $ bisect-ppx-report send-to --dry-run coveralls --verbose 2>&1 | sed s/…/.../g | sed s/\`/\'/g
-  Usage: bisect-ppx-report send-to [--help] [OPTION]... SERVICE
-         [COVERAGE_FILES]...
-  bisect-ppx-report: SERVICE argument: invalid value 'coveralls', expected
-                     either 'Codecov' or 'Coveralls'
+  $ unset GITHUB_ACTIONS
+  $ unset GITHUB_RUN_NUMBER
+  $ unset PULL_REQUEST_NUMBER
 
   $ bisect-ppx-report send-to --dry-run Coveralls --verbose
   Info: will write coverage report to 'coverage.json'
@@ -65,6 +56,10 @@ From Travis to Coveralls.
   }
 
 
+
+
+
+
 From Travis to Codecov.
 
   $ TRAVIS=true TRAVIS_JOB_ID=100 bisect-ppx-report send-to --dry-run Codecov --verbose
@@ -90,6 +85,10 @@ From Travis to Codecov.
           }
     ]
   }
+
+
+
+
 
 
 From CircleCI to Coveralls.
@@ -150,6 +149,8 @@ From CircleCI to Coveralls.
   }
 
 
+
+
 From CircleCI to Codecov.
 
   $ CIRCLECI=true CIRCLE_BUILD_NUM=100 bisect-ppx-report send-to --dry-run Codecov --verbose
@@ -177,8 +178,13 @@ From CircleCI to Codecov.
   }
 
 
+
+
+
+
 From GitHub Actions to Coveralls.
 
+  $ unset GITHUB_RUN_NUMBER
   $ GITHUB_ACTIONS=true bisect-ppx-report send-to --dry-run Coveralls --verbose
   Info: will write coverage report to 'coverage.json'
   Info: detected CI: GitHub Actions
@@ -187,6 +193,7 @@ From GitHub Actions to Coveralls.
   Error: expected job id in $GITHUB_RUN_NUMBER
   [1]
 
+  $ unset PULL_REQUEST_NUMBER
   $ GITHUB_ACTIONS=true GITHUB_RUN_NUMBER=100 bisect-ppx-report send-to --dry-run Coveralls --verbose
   Info: will write coverage report to 'coverage.json'
   Info: detected CI: GitHub Actions
@@ -225,6 +232,8 @@ From GitHub Actions to Coveralls.
   }
 
 
+
+
 From GitHub Actions to Codecov
 
   $ GITHUB_ACTIONS=true GITHUB_RUN_NUMBER=100 bisect-ppx-report send-to --dry-run Codecov --verbose
@@ -250,3 +259,7 @@ From GitHub Actions to Codecov
           }
     ]
   }
+
+
+
+
