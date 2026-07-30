@@ -11,7 +11,7 @@
  "Leonid Rozenberg <leonidr@gmail.com>"
  "Anton Bachin <antonbachin@yahoo.com>")
 
-(maintainers "Dmitrii Kosarev <kakadu.hafanana@gmail.com")
+(maintainers "Dmitrii Kosarev a.k.a. Kakadu <kakadu.hafanana@gmail.com")
 
 (homepage "https://github.com/Kakadu/bisect_ppx_ng")
 
@@ -29,6 +29,8 @@
  (name bisect_ppx)
  (synopsis "Code coverage for OCaml")
  (depends
+  (ocaml
+   (>= "5.3.0"))
   (ppxlib
    (>= "0.36.0"))
   (cmdliner

@@ -1,6 +1,9 @@
 name: test
 on: [push, pull_request]
 
+env:
+  OPAMCONFIRMLEVEL: unsafe-yes
+
 jobs:
   rescript:
     strategy:
@@ -18,10 +21,10 @@ jobs:
     - run: npm install esy
     - run: echo PATH=$(pwd)/node_modules/.bin:$PATH >> $GITHUB_ENV
     - run: make -C test/js full-test
-    - if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
-      env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-      run: bash ./test/ci/binaries.sh
+    # - if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+    #   env:
+    #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+    #   run: bash ./test/ci/binaries.sh
 
   opam:
     if: ${{github.ref != 'refs/heads/binaries'}}
@@ -32,22 +35,17 @@ jobs:
         os:
         - ubuntu-latest
         ocaml:
-        - 4.14.2
-        - 5.0.0
-        - 5.1.1
-        - 5.2.1
+        #- 4.14.2
+        #- 5.0.0
+        #- 5.1.1
+        #- 5.2.1
         - 5.4.1
         - 5.5.0
         #- 5.5.1
-        include:
-        - os: macos-latest
-          ocaml: 4.14.2
-        - os: windows-latest
-          ocaml: 4.14.2
 
     runs-on: ${{matrix.os}}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - uses: avsm/setup-ocaml@v3
       with:
         ocaml-compiler: ${{matrix.ocaml}}
@@ -74,7 +72,6 @@ jobs:
       run: |
         opam --version
         opam exec -- ocaml -version
-        #opam exec -- ocamlformat --version
         truncate --version
 
     - name: Build
@@ -92,21 +89,21 @@ jobs:
 
 
     - name: Usage test
-      if: ${{matrix.ocaml == '4.14.2' && runner.os == 'Linux'}}
+      if: ${{ matrix.ocaml == '5.4.1' && runner.os == 'Linux' }}
       run: |
         opam install reason js_of_ocaml --yes
         opam exec -- make clean-usage usage
 
-    - name: Submit self-coverage to Coveralls
-      if: ${{matrix.ocaml == '4.14.2' && runner.os == 'Linux'}}
-      continue-on-error: true
-      env:
-        COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        PULL_REQUEST_NUMBER: ${{github.event.number}}
-      run: |
-        (unset GITHUB_ACTIONS && unset GITHUB_RUN_NUMBER && \
-         unset COVERALLS_REPO_TOKEN && unset PULL_REQUEST_NUMBER && \
-          opam exec -- make clean self-coverage)
-        (cd _self && \
-          _build/install/default/bin/meta-bisect-ppx-report \
-            send-to Coveralls bisect*.meta)
+    # - name: Submit self-coverage to Coveralls
+    #   if: ${{ matrix.ocaml == '5.4.1' && runner.os == 'Linux' }}
+    #   continue-on-error: true
+    #   env:
+    #     COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    #     PULL_REQUEST_NUMBER: ${{github.event.number}}
+    #   run: |
+    #     (unset GITHUB_ACTIONS && unset GITHUB_RUN_NUMBER && \
+    #      unset COVERALLS_REPO_TOKEN && unset PULL_REQUEST_NUMBER && \
+    #       opam exec -- make clean self-coverage)
+    #     (cd _self && \
+    #       _build/install/default/bin/meta-bisect-ppx-report \
+    #         send-to Coveralls bisect*.meta)
