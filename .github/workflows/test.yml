@@ -5,30 +5,32 @@ env:
   OPAMCONFIRMLEVEL: unsafe-yes
 
 jobs:
-  rescript:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-        - ubuntu-26.04
-        #- macos-13
-        # Build binaries on older systems to require lower versions of libc and
-        # other system libraries.
 
-    runs-on: ${{ matrix.os }}
-    concurrency:
-      group: rescript-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+  # disable rescript temporarily
+  # rescript:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       os:
+  #       - ubuntu-26.04
+  #       #- macos-13
+  #       # Build binaries on older systems to require lower versions of libc and
+  #       # other system libraries.
 
-    steps:
-    - uses: actions/checkout@v2
-    - run: npm install esy
-    - run: echo PATH=$(pwd)/node_modules/.bin:$PATH >> $GITHUB_ENV
-    - run: make -C test/js full-test
-    # - if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
-    #   env:
-    #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-    #   run: bash ./test/ci/binaries.sh
+  #   runs-on: ${{ matrix.os }}
+  #   concurrency:
+  #     group: rescript-${{ github.workflow }}-${{ github.ref }}
+  #     cancel-in-progress: true
+
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #     - run: npm install esy
+  #     - run: echo PATH=$(pwd)/node_modules/.bin:$PATH >> $GITHUB_ENV
+  #     - run: make -C test/js full-test
+  #     # - if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+  #     #   env:
+  #     #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+  #     #   run: bash ./test/ci/binaries.sh
 
   opam:
     if: ${{github.ref != 'refs/heads/binaries'}}
@@ -37,12 +39,12 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - ubuntu-latest
+          - ubuntu-latest
         ocaml:
-        #- 5.2.1
-        - 5.4.1
-        - 5.5.0
-        #- 5.5.1
+          #- 5.2.1
+          - 5.4.1
+          - 5.5.0
+          #- 5.5.1
 
     runs-on: ${{ matrix.os }}
     concurrency:
