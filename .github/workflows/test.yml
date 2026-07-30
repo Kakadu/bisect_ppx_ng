@@ -1,5 +1,5 @@
 name: test
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 env:
   OPAMCONFIRMLEVEL: unsafe-yes
@@ -15,7 +15,11 @@ jobs:
         # Build binaries on older systems to require lower versions of libc and
         # other system libraries.
 
-    runs-on: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    concurrency:
+      group: rescript-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
     - uses: actions/checkout@v2
     - run: npm install esy
@@ -35,15 +39,16 @@ jobs:
         os:
         - ubuntu-latest
         ocaml:
-        #- 4.14.2
-        #- 5.0.0
-        #- 5.1.1
         #- 5.2.1
         - 5.4.1
         - 5.5.0
         #- 5.5.1
 
-    runs-on: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    concurrency:
+      group: opam-${{ github.workflow }}-${{ github.ref }}-${{ matrix.ocaml }}
+      cancel-in-progress: true
+
     steps:
     - uses: actions/checkout@v7
     - uses: avsm/setup-ocaml@v3
