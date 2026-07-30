@@ -1,6 +1,6 @@
 .mli files are not instrumented.
 
-  $ echo > .ocamlformat
+
   $ echo "(lang dune 2.7)" > dune-project
   $ cat > dune <<'EOF'
   > (executable
@@ -22,6 +22,5 @@
   >   ! [[ "$line" =~ val ]] || exit 0
   > done
   > EOF
-  $ dune build --instrument-with bisect_ppx 2>&1 | grep -v ocamlc | grep -v '^    [^ =][^ =]* =\|^  {\|^  }]\|@@@ocaml.ppx' | bash sanitize.sh | ocamlformat --name test.mli -
+  $ dune build --instrument-with bisect_ppx 2>&1 | grep -v ocamlc | grep -v '^    [^ =][^ =]* =\|^  {\|^  }]\|@@@ocaml.ppx' | bash sanitize.sh
   val f : unit -> unit
-
