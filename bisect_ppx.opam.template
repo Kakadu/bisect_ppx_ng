@@ -5,3 +5,5 @@ showing which places were visited and which were missed.
 
 Usage is simple - add package bisect_ppx when building tests, run your tests,
 then run the Bisect_ppx report tool on the generated visitation files."
+
+dev-repo: "git+https://github.com/Kakadu/bisect_ppx_ng.git"

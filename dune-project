@@ -21,8 +21,6 @@
 
 (bug_reports "https://github.com/Kakadu/bisect_ppx_ng")
 
-;(dev-repo "git+https://github.com/Kakadu/bisect_ppx_ng.git")
-
 (maintenance_intent "2.8.3" "(latest)")
 
 (license MIT)
