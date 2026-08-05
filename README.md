@@ -1,5 +1,5 @@
 <h1 align="center">
-<img alt="Bisect_ppx" src="https://raw.githubusercontent.com/aantron/bisect_ppx/master/doc/logo.png" width="200">
+<img alt="Bisect_ppx" src="https://raw.githubusercontent.com/Kakadu/bisect_ppx_ng/master/doc/logo.png" width="200">
 </img>
 <br>
 Bisect_ppx
@@ -8,6 +8,8 @@ Bisect_ppx
 **Bisect_ppx** is a code coverage tool for OCaml. It helps you test
 thoroughly by showing what's **not** tested. You can browse the report seen
 in the demo below [online here][gh-pages-report].
+
+Version 3.0.0 is prepared by Kakadu in this repo: https://github.com/Kakadu/bisect_ppx_ng
 
 <br><br>
 
