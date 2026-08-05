@@ -31,8 +31,7 @@ is still emitted for the user's code.
 
 
   $ dune build --instrument-with bisect_ppx  #--display quiet 2>&1 #| sed -e 's/ \[[^]]*\]//g'
-  $ dune show pp test.ml --instrument-with bisect_ppx | tac | sed -n '/ocaml.text/{p; q}; p' | tac
-  [@@@ocaml.text "/*"]
+  $ dune show pp test.ml --instrument-with bisect_ppx | ./skip_comment.exe
   [@@@ocaml.warning "-9-12"]
   [@@@ocaml.warnerror "-9"]
   type t = {
@@ -75,8 +74,7 @@ $ export VERBOSE=1
   struct let () = ___bisect_post_visit___ 2 (print_endline "foo") end
   in print_endline "bar")
 
-  $ dune show pp test.ml --instrument-with bisect_ppx | tac | sed -n '/ocaml.text/{p; q}; p' | tac
-  [@@@ocaml.text "/*"]
+  $ dune show pp test.ml --instrument-with bisect_ppx | ./skip_comment.exe
   let _ = let module Foo = struct  end in 0
   let _ =
     let

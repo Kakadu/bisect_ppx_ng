@@ -6,5 +6,10 @@
 
 (cram
  (applies_to only5_5)
+ (deps skip_comment.exe)
  (enabled_if
   (>= %{ocaml_version} "5.5.0")))
+
+(executable
+ (name skip_comment)
+ (modules skip_comment))
