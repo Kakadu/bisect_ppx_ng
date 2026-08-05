@@ -22,20 +22,6 @@ depends: [
   "reason" {with-test}
   "odoc" {with-doc}
 ]
-build: [
-  ["dune" "subst"] {dev}
-  [
-    "dune"
-    "build"
-    "-p"
-    name
-    "-j"
-    jobs
-    "@install"
-    "@runtest" {with-test}
-    "@doc" {with-doc}
-  ]
-]
 x-maintenance-intent: ["2.8.3" "(latest)"]
 description: "Bisect_ppx helps you test thoroughly. It is a small preprocessor
 that inserts instrumentation at places in your code, such as if-then-else and
@@ -46,3 +32,19 @@ Usage is simple - add package bisect_ppx when building tests, run your tests,
 then run the Bisect_ppx report tool on the generated visitation files."
 
 dev-repo: "git+https://github.com/Kakadu/bisect_ppx_ng.git"
+
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    # Bisect_ppx prints OCaml code a lot while testing and it is shaky between compiler versions
+    "@runtest" {with-test & ocaml:version >= "5.3.0" }
+    "@doc" {with-doc}
+  ]
+]
