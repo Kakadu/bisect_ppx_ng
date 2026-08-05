@@ -1,3 +1,11 @@
+Version 3.0.0 (2026-08-05):
+---------------------------
+
+  Changes
+
+  - OCaml 5.5 support
+  - Move project to another maintainer while aantron is busy
+
 Version 2.8.3 (2023-07-17):
 ---------------------------
 
