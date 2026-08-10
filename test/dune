@@ -3,4 +3,4 @@
 
 (cram
  (deps
-  (package bisect_ppx)))
+  (package bisect_ppx_ng)))

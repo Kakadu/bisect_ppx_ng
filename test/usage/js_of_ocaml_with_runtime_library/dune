@@ -3,7 +3,9 @@
 ; raised when attempting to write coverage data in Runtime.dump from Failure to
 ; Js.Error, since Failure is only used by caml_wrap_exception when Js.Error is
 ; not present.
+
 (executable
  (name source)
  (libraries js_of_ocaml-compiler.runtime)
- (preprocess (pps bisect_ppx --conditional)))
+ (preprocess
+  (pps bisect_ppx_ng --conditional)))

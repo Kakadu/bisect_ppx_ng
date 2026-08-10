@@ -4,9 +4,9 @@ Missing files trigger a neat error.
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
   $ rm -rf _build
   $ mv test.ml test2.ml
   $ bisect-ppx-report html
@@ -23,10 +23,10 @@ Missing files trigger a neat error.
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
   $ mv test2.ml test.ml
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
   $ rm -rf _build
   $ mv test.ml test2.ml
   $ bisect-ppx-report html --ignore-missing-files --verbose
@@ -43,10 +43,10 @@ The warning is visible only when --verbose is provided.
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
   $ mv test2.ml test.ml
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
   $ rm -rf _build
   $ mv test.ml test2.ml
   $ bisect-ppx-report html --ignore-missing-files

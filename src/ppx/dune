@@ -3,15 +3,15 @@
 (ocamlyacc exclude_parser)
 
 (library
- (name bisect_ppx)
- (public_name bisect_ppx)
+ (name bisect_ppx_ng)
+ (public_name bisect_ppx_ng)
  (kind ppx_rewriter)
  (instrumentation.backend
-  (ppx bisect_ppx))
+  (ppx bisect_ppx_ng))
  (synopsis "Code coverage for OCaml")
- (ppx_runtime_libraries bisect_ppx.runtime)
+ (ppx_runtime_libraries bisect_ppx_ng.runtime)
  (preprocess
   (pps ppxlib.metaquot))
  (flags
   (:standard -open Ocaml_shadow))
- (libraries bisect_ppx.common ppxlib str))
+ (libraries bisect_ppx_ng.common ppxlib str))

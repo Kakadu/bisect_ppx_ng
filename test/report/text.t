@@ -4,9 +4,9 @@ Summary.
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
   $ bisect-ppx-report summary --verbose
   Info: found *.coverage files in './'
   Coverage: 2/6 (33.33%)
@@ -20,15 +20,15 @@ Per-file coverage.
   > (executable
   >  (name test)
   >  (modules test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > 
   > (executable
   >  (name empty)
   >  (modules empty)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test.exe --instrument-with bisect_ppx
-  $ dune exec ./empty.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
+  $ dune exec ./empty.exe --instrument-with bisect_ppx_ng
   $ bisect-ppx-report summary --per-file --verbose
   Info: found *.coverage files in './'
   100.00 %   0/0   empty.ml

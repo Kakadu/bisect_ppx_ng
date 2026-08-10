@@ -8,7 +8,7 @@ shadowing is not occurring.
   > (executable
   >  (name test)
   >  (modes byte)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
   $ cat > test.ml <<'EOF'
   > [@@@ocaml.warning "+44"]
@@ -18,4 +18,4 @@ shadowing is not occurring.
   $ cat > helper.ml <<'EOF'
   > let g () = ()
   > EOF
-  $ dune build --instrument-with bisect_ppx --display quiet
+  $ dune build --instrument-with bisect_ppx_ng --display quiet

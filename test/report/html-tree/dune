@@ -3,5 +3,5 @@
   test_tree.ml
   (source_tree foo)
   (source_tree baz)
-  (package bisect_ppx))
+  (package bisect_ppx_ng))
  (alias compatible))

@@ -4,9 +4,9 @@ A successful run with a complete .coverage file.
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
   $ mv bisect*.coverage bisect0.coverage
   $ cat bisect0.coverage
   BISECT-COVERAGE-4 1 7 test.ml 6 13 30 45 245 229 212 6 1 0 1 0 0 0

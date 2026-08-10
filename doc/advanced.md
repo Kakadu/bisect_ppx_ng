@@ -66,7 +66,7 @@ the Bisect_ppx preprocessor:
 
 ```
 (instrumentation
- (backend bisect_ppx --exclusions bisect.exclude)
+ (backend bisect_ppx_ng --exclusions bisect.exclude)
  (deps bisect.exclude))
 ```
 

@@ -2,9 +2,9 @@
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
 
   $ git init --quiet
   $ export GIT_COMMITTER_NAME=C
@@ -60,6 +60,8 @@ From Travis to Coveralls.
 
 
 
+
+
 From Travis to Codecov.
 
   $ TRAVIS=true TRAVIS_JOB_ID=100 bisect-ppx-report send-to --dry-run Codecov --verbose
@@ -85,6 +87,8 @@ From Travis to Codecov.
           }
     ]
   }
+
+
 
 
 
@@ -151,6 +155,7 @@ From CircleCI to Coveralls.
 
 
 
+
 From CircleCI to Codecov.
 
   $ CIRCLECI=true CIRCLE_BUILD_NUM=100 bisect-ppx-report send-to --dry-run Codecov --verbose
@@ -176,6 +181,8 @@ From CircleCI to Codecov.
           }
     ]
   }
+
+
 
 
 
@@ -234,6 +241,7 @@ From GitHub Actions to Coveralls.
 
 
 
+
 From GitHub Actions to Codecov
 
   $ GITHUB_ACTIONS=true GITHUB_RUN_NUMBER=100 bisect-ppx-report send-to --dry-run Codecov --verbose
@@ -259,7 +267,5 @@ From GitHub Actions to Codecov
           }
     ]
   }
-
-
 
 

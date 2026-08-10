@@ -4,9 +4,9 @@
   > 
   > (executable
   >   (name test_tree)
-  >   (instrumentation (backend bisect_ppx)))
+  >   (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test_tree.exe --instrument-with bisect_ppx
+  $ dune exec ./test_tree.exe --instrument-with bisect_ppx_ng
   $ bisect-ppx-report html --tree --verbose
   Info: found *.coverage files in './'
   Info: Writing index file...
@@ -218,3 +218,4 @@
       <script src="../coverage.js"></script>
     </body>
   </html>
+

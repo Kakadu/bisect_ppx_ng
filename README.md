@@ -1,15 +1,15 @@
 <h1 align="center">
-<img alt="Bisect_ppx" src="https://raw.githubusercontent.com/Kakadu/bisect_ppx_ng/master/doc/logo.png" width="200">
+<img alt="Bisect_ppx_ng" src="https://raw.githubusercontent.com/Kakadu/bisect_ppx_ng/master/doc/logo.png" width="200">
 </img>
 <br>
-Bisect_ppx
+Bisect_ppx_ng
 </h1>
 
-**Bisect_ppx** is a code coverage tool for OCaml. It helps you test
-thoroughly by showing what's **not** tested. You can browse the report seen
-in the demo below [online here][gh-pages-report].
+**Bisect_ppx_ng**/**Bisect_ppx** are code coverage tools for OCaml.
+They helps you test thoroughly by showing what's **not** tested.
+You can browse the report seen in the demo below [online here][gh-pages-report].
 
-Version 3.0.0 is prepared by Kakadu in this repo: https://github.com/Kakadu/bisect_ppx_ng
+Version 3.0.0 is prepared by Kakadu and name jas been changed from biscet_ppx too bisect_ppx_ng.
 
 <br><br>
 
@@ -20,10 +20,10 @@ Version 3.0.0 is prepared by Kakadu in this repo: https://github.com/Kakadu/bise
 </a>
 </p>
 
-[self]: https://github.com/aantron/bisect_ppx
-[sample]: https://raw.githubusercontent.com/aantron/bisect_ppx/master/doc/sample.gif
-[coveralls]: https://coveralls.io/github/aantron/bisect_ppx?branch=master
-[coveralls-img]: https://img.shields.io/coveralls/aantron/bisect_ppx/master.svg
+[self]: https://github.com/Kakadu/Bisect_ppx_ng
+[sample]: https://raw.githubusercontent.com/Kakadu/Bisect_ppx_ng/master/doc/sample.gif
+[coveralls]: https://coveralls.io/github/Kakadu/Bisect_ppx_ng?branch=master
+[coveralls-img]: https://img.shields.io/coveralls/Kakadu/Bisect_ppx_ng/master.svg
 
 
 
@@ -81,7 +81,7 @@ Refer to [**aantron/bisect-starter-dune**][dune-repo], which produces
 
     ```
     find . -name '*.coverage' | xargs rm -f
-    dune runtest --instrument-with bisect_ppx --force
+    dune runtest --instrument-with bisect_ppx_ng --force
     ```
 
     The `--force` flag forces all your tests to run, which is needed for an
@@ -136,7 +136,7 @@ instead of in an `opam` file:
 
     ```
     esy install
-    esy dune runtest --instrument-with bisect_ppx --force
+    esy dune runtest --instrument-with bisect_ppx_ng --force
     esy bisect-ppx-report html
     ```
 
@@ -336,9 +336,9 @@ instructions can be found at
 instrument the code under test, but not the tester:
 
     ```
-    ocamlfind opt -package bisect_ppx -c src/source.ml
+    ocamlfind opt -package bisect_ppx_ng -c src/source.ml
     ocamlfind opt -c test/test.ml
-    ocamlfind opt -linkpkg -package bisect_ppx src/source.cmx test/test.cmx
+    ocamlfind opt -linkpkg -package bisect_ppx_ng src/source.cmx test/test.cmx
     ```
 
     Running the tester will then produce `bisect0123456789.coverage` files,

@@ -1,6 +1,6 @@
 (cram
  (deps
-  (package bisect_ppx)
+  (package bisect_ppx_ng)
   daemon.ml
   at_exit_main.ml
   at_exit_hook.ml))

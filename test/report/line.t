@@ -4,7 +4,7 @@ Reporter still works even in the presence of line number directives.
   $ cat > dune <<'EOF'
   > (executable
   >  (name test2)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
   $ cat test.ml - >> test2.ml <<'EOF'
   > 
@@ -41,7 +41,13 @@ Reporter still works even in the presence of line number directives.
   
   let () =
     h ()
-  $ dune exec ./test2.exe --instrument-with bisect_ppx
+
+
+
+
+
+
+  $ dune exec ./test2.exe --instrument-with bisect_ppx_ng
   $ bisect-ppx-report html --verbose
   Info: found *.coverage files in './'
   Info: Writing index file...
@@ -157,3 +163,9 @@ Reporter still works even in the presence of line number directives.
       <script src="coverage.js"></script>
     </body>
   </html>
+
+
+
+
+
+
