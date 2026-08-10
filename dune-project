@@ -2,11 +2,11 @@
 
 (cram enable)
 
-(name bisect_ppx)
+(generate_opam_files true)
+
+(name bisect_ppx_ng)
 
 (version 3.0.0)
-
-(generate_opam_files true)
 
 (authors
  "Xavier Clerc <bisect@x9c.fr>"
@@ -21,12 +21,12 @@
 
 (bug_reports "https://github.com/Kakadu/bisect_ppx_ng")
 
-(maintenance_intent "2.8.3" "(latest)")
+(maintenance_intent "(latest)")
 
 (license MIT)
 
 (package
- (name bisect_ppx)
+ (name bisect_ppx_ng)
  (synopsis "Code coverage for OCaml")
  (depends
   (ocaml

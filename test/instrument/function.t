@@ -8,7 +8,7 @@ This is a regression test for #450: https://github.com/aantron/bisect_ppx/issues
   > (library
   >  (name lib)
   >  (modules lib)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > 
   > (test
   >  (name test)
@@ -30,7 +30,7 @@ This is a regression test for #450: https://github.com/aantron/bisect_ppx/issues
   >   exit 1
   > EOF
 
-  $ dune runtest --instrument-with bisect_ppx
+  $ dune runtest --instrument-with bisect_ppx_ng
   Test success!
 
 This is a regression test for https://github.com/aantron/bisect_ppx/pull/448#issuecomment-3477888423
@@ -51,6 +51,5 @@ This is a regression test for https://github.com/aantron/bisect_ppx/pull/448#iss
   >   exit 1
   > EOF
 
-  $ dune runtest --instrument-with bisect_ppx
+  $ dune runtest --instrument-with bisect_ppx_ng
   Test success!
-

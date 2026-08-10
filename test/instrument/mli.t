@@ -7,7 +7,7 @@
   >  (name test)
   >  (modes byte)
   >  (ocamlc_flags -dsource)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
   $ cat > test.ml <<'EOF'
   > let f () = ()
@@ -22,5 +22,5 @@
   >   ! [[ "$line" =~ val ]] || exit 0
   > done
   > EOF
-  $ dune build --instrument-with bisect_ppx 2>&1 | grep -v ocamlc | grep -v '^    [^ =][^ =]* =\|^  {\|^  }]\|@@@ocaml.ppx' | bash sanitize.sh
+  $ dune build --instrument-with bisect_ppx_ng 2>&1 | grep -v ocamlc | grep -v '^    [^ =][^ =]* =\|^  {\|^  }]\|@@@ocaml.ppx' | bash sanitize.sh
   val f : unit -> unit

@@ -1,8 +1,8 @@
 (executable
  (name main)
  (public_name bisect-ppx-report)
- (package bisect_ppx)
- (libraries bisect_ppx.common cmdliner unix))
+ (package bisect_ppx_ng)
+ (libraries bisect_ppx_ng.common cmdliner unix))
 
 (rule
  (targets assets.ml)
@@ -11,7 +11,8 @@
   (:js coverage.js)
   (:hljs ../vendor/highlight.js/highlight.pack.js))
  (action
-  (with-stdout-to %{targets}
+  (with-stdout-to
+   %{targets}
    (progn
     (echo "let css = {css|")
     (cat %{css})

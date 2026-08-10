@@ -4,7 +4,7 @@ Bisect's runtime can install a signal handler.
   $ cat > dune <<'EOF'
   > (executables
   >  (names daemon)
-  >  (preprocess (pps bisect_ppx --bisect-sigterm)))
+  >  (preprocess (pps bisect_ppx_ng --bisect-sigterm)))
   > EOF
   $ dune exec ./daemon.exe
   $ ls bisect*.coverage | wc -l | sed 's/ *//'
@@ -21,7 +21,7 @@ data when terminating normally:
   $ cat > dune <<'EOF'
   > (executables
   >  (names normal)
-  >  (preprocess (pps bisect_ppx --bisect-sigterm)))
+  >  (preprocess (pps bisect_ppx_ng --bisect-sigterm)))
   > EOF
   $ cat > normal.ml <<'EOF'
   > let () = ()

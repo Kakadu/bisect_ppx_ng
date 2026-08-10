@@ -6,7 +6,7 @@ it generates, including one module from another will trigger an error.
   > (executable
   >  (name test)
   >  (modes byte)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
   $ cat > test.ml <<'EOF'
   > include Helper
@@ -15,4 +15,4 @@ it generates, including one module from another will trigger an error.
   $ cat > helper.ml <<'EOF'
   > let () = ()
   > EOF
-  $ dune build --instrument-with bisect_ppx --display quiet
+  $ dune build --instrument-with bisect_ppx_ng --display quiet

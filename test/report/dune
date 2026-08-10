@@ -2,7 +2,7 @@
  (enabled_if
   (<> %{system} macosx))
  (deps
-  (package bisect_ppx)
+  (package bisect_ppx_ng)
   test.ml
   merge.ml
   test_merge1.ml

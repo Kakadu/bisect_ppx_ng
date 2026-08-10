@@ -18,7 +18,7 @@ handler, we should see no message and find two coverage traces:
   $ cat > dune <<'EOF'
   > (executable
   >  (name at_exit_main)
-  >  (preprocess (pps bisect_ppx --bisect-sigterm)))
+  >  (preprocess (pps bisect_ppx_ng --bisect-sigterm)))
   > EOF
   $ dune exec ./at_exit_main.exe
   $ ls bisect*.coverage | wc -l | sed 's/ *//'

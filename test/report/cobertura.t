@@ -2,9 +2,9 @@
   $ cat > dune <<'EOF'
   > (executable
   >  (name test)
-  >  (instrumentation (backend bisect_ppx)))
+  >  (instrumentation (backend bisect_ppx_ng)))
   > EOF
-  $ dune exec ./test.exe --instrument-with bisect_ppx
+  $ dune exec ./test.exe --instrument-with bisect_ppx_ng
   $ bisect-ppx-report cobertura coverage.xml --verbose
   Info: found *.coverage files in './'
   $ cat coverage.xml

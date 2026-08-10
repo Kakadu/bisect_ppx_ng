@@ -6,7 +6,7 @@ echo "(executable" > dune
 echo " (name test)" >> dune
 echo " (modes byte)" >> dune
 echo " (ocamlc_flags -dsource)" >> dune
-echo " (instrumentation (backend bisect_ppx)))" >> dune
+echo " (instrumentation (backend bisect_ppx_ng)))" >> dune
 
 echo > .ocamlformat
 
@@ -47,8 +47,5 @@ if [ "$VERBOSE" == "1" ]; then
   ocamlopt test.ml -dsource -stop-after typing
 fi
 
-dune build ./test.bc --instrument-with bisect_ppx 2>&1 \
+dune build ./test.bc --instrument-with bisect_ppx_ng 2>&1 \
 | sanitize $DELIMITERS \
-
-
-

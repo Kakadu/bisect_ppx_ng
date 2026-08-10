@@ -1,7 +1,7 @@
 (cram
  (deps
   test.sh
-  (package bisect_ppx))
+  (package bisect_ppx_ng))
  (alias compatible))
 
 (cram

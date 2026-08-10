@@ -1,16 +1,16 @@
 .PHONY : build
 build :
-	dune build -p bisect_ppx
+	dune build -p bisect_ppx_ng
 
 .PHONY : watch
 watch :
-	dune build -p bisect_ppx -w
+	dune build -p bisect_ppx_ng -w
 
 TEST := @runtest
 
 .PHONY : test
 test : build
-	NO_COLOR=yes dune build -p bisect_ppx $(TEST)
+	NO_COLOR=yes dune build -p bisect_ppx_ng $(TEST)
 
 .PHONY : promote
 promote :
@@ -56,7 +56,7 @@ gh-pages:
 .PHONY : self-coverage
 self-coverage : self-coverage-workspace self-coverage-rename self-coverage-test
 
-SOURCES := bisect_ppx.opam dune-project src/
+SOURCES := bisect_ppx_ng.opam dune-project src/
 
 .PHONY : self-coverage-workspace
 self-coverage-workspace :
