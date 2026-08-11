@@ -1,3 +1,4 @@
 (executable
  (name source)
- (instrumentation (backend bisect_ppx)))
+ (instrumentation
+  (backend bisect_ppx_ng)))

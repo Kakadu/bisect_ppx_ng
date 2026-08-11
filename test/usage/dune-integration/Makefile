@@ -3,7 +3,7 @@ test : clean
 	dune exec ./source.exe
 	! test -f bisect*.coverage
 	dune clean
-	dune exec --instrument-with bisect_ppx ./source.exe
+	dune exec --instrument-with bisect_ppx_ng ./source.exe
 	ls -l _build
 	test -f bisect*.coverage
 
