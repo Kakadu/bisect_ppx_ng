@@ -1,4 +1,6 @@
 (library
  (name bisect_common)
  (public_name bisect_ppx_ng.common)
- (synopsis "Bisect_ppx internal functions (internal)"))
+ (synopsis "Bisect_ppx internal functions (internal)")
+ ;; Also built in melange mode: the Melange runtime links it.
+ (modes :standard melange))

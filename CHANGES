@@ -1,3 +1,25 @@
+Unreleased:
+-----------
+
+  Additions
+
+  - Melange support: a `bisect_ppx_ng.melange` ppx driver (no command-line
+    switches, controlled through the BISECT_* environment variables) and a
+    Melange runtime library `bisect_ppx_ng.runtime.js` that writes coverage
+    data with fs.writeFileSync on the Node.js process "exit" hook.
+    Instrument Melange targets with
+    `(instrumentation (backend bisect_ppx_ng_melange))` and build with
+    `--instrument-with bisect_ppx_ng_melange`.
+  - The runtime honours the BISECT_FILE environment variable.
+
+  Changes
+
+  - Split the ppx driver into a shared core library
+    (`bisect_ppx_ng_core`) and thin native/Melange driver libraries.
+  - The dune-project file was removed so that the tree can be built as part
+    of a consuming workspace (e.g. as a git submodule); the root dune file
+    restricts the build to src/.
+
 Version 3.0.0 (2026-08-11):
 ---------------------------
 

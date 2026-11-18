@@ -2,6 +2,23 @@
 
 (ocamlyacc exclude_parser)
 
+;; The instrumentation core, shared by the native and the Melange drivers.
+;; It is always built natively: ppx drivers are host tools, even when they
+;; instrument Melange code.
+
+(library
+ (name bisect_ppx_ng_core)
+ (public_name bisect_ppx_ng.core)
+ ;; Unwrapped so that the driver libraries can refer to the modules
+ ;; (Instrument, Exclusions, ...) without qualification.
+ (wrapped false)
+ (modules instrument exclusions exclude exclude_lexer exclude_parser)
+ (libraries bisect_ppx_ng.common ppxlib str)
+ (preprocess
+  (pps ppxlib.metaquot))
+ (flags
+  (:standard -open Ocaml_shadow)))
+
 (library
  (name bisect_ppx_ng)
  (public_name bisect_ppx_ng)
@@ -10,8 +27,9 @@
   (ppx bisect_ppx_ng))
  (synopsis "Code coverage for OCaml")
  (ppx_runtime_libraries bisect_ppx_ng.runtime)
+ (modules register)
+ (libraries bisect_ppx_ng_core ppxlib)
  (preprocess
   (pps ppxlib.metaquot))
  (flags
-  (:standard -open Ocaml_shadow))
- (libraries bisect_ppx_ng.common ppxlib str))
+  (:standard -open Ocaml_shadow)))

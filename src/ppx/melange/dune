@@ -1,0 +1,23 @@
+;; Melange driver: same instrumentation core as the native driver, but with
+;; a register.ml that drops the Arg-based command-line switches, and the
+;; Melange runtime as its ppx runtime library, so that instrumented Melange
+;; targets link a Melange-buildable runtime (no unix dependency).
+;;
+;; Usage: add (instrumentation (backend bisect_ppx_ng_melange)) to the
+;; stanzas to instrument, and build with
+;; --instrument-with bisect_ppx_ng_melange.
+
+(library
+ (name bisect_ppx_ng_melange)
+ (public_name bisect_ppx_ng.melange)
+ (kind ppx_rewriter)
+ (instrumentation.backend
+  (ppx bisect_ppx_ng_melange))
+ (synopsis "Code coverage for OCaml (Melange)")
+ (ppx_runtime_libraries bisect_ppx_ng_runtime_js)
+ (modules register)
+ (libraries bisect_ppx_ng_core ppxlib)
+ (preprocess
+  (pps ppxlib.metaquot))
+ (flags
+  (:standard -open Ocaml_shadow)))

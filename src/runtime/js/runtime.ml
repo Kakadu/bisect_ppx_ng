@@ -11,40 +11,20 @@ module Node =
 struct
   module Fs =
   struct
-    external openSync :
-      string ->
-      ([ `Read [@as "r"]
-      | `Read_write [@as "r+"]
-      | `Read_write_sync [@as "rs+"]
-      | `Write [@as "w"]
-      | `Write_fail_if_exists [@as "wx"]
-      | `Write_read [@as "w+"]
-      | `Write_read_fail_if_exists [@as "wx+"]
-      | `Append [@as "a"]
-      | `Append_fail_if_exists [@as "ax"]
-      | `Append_read [@as "a+"]
-      | `Append_read_fail_if_exists [@as "ax+"] ]
-      [@string]) ->
-      unit = "openSync"
-      [@@module "fs"]
+    (* The flags and encoding arguments are plain strings, because the
+       Node.js flag names (e.g. "r+") are not valid OCaml identifiers. *)
+    external openSync : string -> string -> unit = "openSync"
+      [@@mel.module "fs"]
 
-    type encoding = [
-      | `hex
-      | `utf8
-      | `ascii
-      | `latin1
-      | `base64
-      | `ucs2
-      | `base64
-      | `binary
-      | `utf16le
-    ]
-
-    external writeFileSync : string -> string -> encoding -> unit =
+    external writeFileSync : string -> string -> string -> unit =
       "writeFileSync"
-      [@@val] [@@module "fs"]
+      [@@mel.module "fs"]
   end
 end
+
+let default_bisect_file = ref "bisect"
+
+let env_to_fname env default = try Sys.getenv env with Not_found -> !default
 
 let get_coverage_data =
   Bisect_common.runtime_data_to_string
@@ -55,22 +35,23 @@ let write_coverage_data () =
     ()
   | Some data ->
     let rec create_file attempts =
-      let filename = Bisect_common.random_filename ~prefix:"bisect" in
-      match Node.Fs.openSync filename `Write_fail_if_exists with
+      let prefix = env_to_fname "BISECT_FILE" default_bisect_file in
+      let filename = Bisect_common.random_filename ~prefix in
+      match Node.Fs.openSync filename "wx" with
       | exception exn ->
         if attempts = 0 then
           raise exn
         else
           create_file (attempts - 1)
       | _ ->
-        Node.Fs.writeFileSync filename data `binary
+        Node.Fs.writeFileSync filename data "binary"
     in
     create_file 100
 
 let reset_coverage_data =
   Bisect_common.reset_counters
 
-let node_at_exit = [%bs.raw {|
+let node_at_exit : (unit -> unit) -> unit = [%mel.raw {|
   function (callback) {
     if (typeof process !== 'undefined' && typeof process.on !== 'undefined')
       process.on("exit", callback);

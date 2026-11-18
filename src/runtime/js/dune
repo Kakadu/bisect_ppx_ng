@@ -1,0 +1,19 @@
+;; Melange runtime: linked into instrumented Melange targets. It writes
+;; coverage data with fs.writeFileSync and dumps it on the Node.js process
+;; "exit" hook, because the stdlib file functions and at_exit are not
+;; available under Melange.
+;;
+;; The library is compiled in melange mode only: it is linked into the
+;; instrumented bundles, never into OCaml executables. The wrapped-false
+;; layout with the bisect.ml shim exposes the module path
+;; Bisect.Runtime.register_file emitted by the driver.
+
+(library
+ (name bisect_ppx_ng_runtime_js)
+ (public_name bisect_ppx_ng.runtime.js)
+ (modules bisect runtime)
+ (wrapped false)
+ (modes melange)
+ (preprocess
+  (pps melange.ppx))
+ (libraries bisect_ppx_ng.common))
